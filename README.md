@@ -24,7 +24,7 @@
 
 ```css
 multi-authentication-sample/
-├── backend/          # Spring Boot 프로젝트
+├── auth/          # Spring Boot 프로젝트
 │   └── src/
 │       └── main/
 │           └── java/
@@ -64,7 +64,7 @@ multi-authentication-sample/
 1. `backend` 디렉토리로 이동 후 Maven 프로젝트 빌드:
     
     ```bash
-    cd backend
+    cd auth
     ./gradlew build
     ```
     
@@ -86,11 +86,3 @@ multi-authentication-sample/
 - 다양한 인증 방식에 대한 테스트 코드 추가
 - OAuth2 인증 서비스 확장 (예: GitHub, Twitter)
 - 사용자 인증 데이터베이스 연동
-
-## 기여 방법
-
-1. 이 프로젝트를 포크합니다.
-2. 새 브랜치를 생성합니다 (`git checkout -b feature/새기능`).
-3. 변경 사항을 커밋합니다 (`git commit -m '새 기능 추가'`).
-4. 브랜치에 푸시합니다 (`git push origin feature/새기능`).
-5. Pull Request를 생성합니다.
