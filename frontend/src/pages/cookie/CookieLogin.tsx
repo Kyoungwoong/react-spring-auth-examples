@@ -3,7 +3,7 @@ import SuccessPage from '../successlogin/SuccessPage';
 import './Cookie.css';
 import { useCookies } from 'react-cookie';
 
-const Cookie: React.FC = () => {
+const CookieLogin: React.FC = () => {
   const [cookies, setCookie, removeCookie] = useCookies(['auth-token']);
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -112,4 +112,4 @@ const Cookie: React.FC = () => {
   );
 };
 
-export default Cookie;
+export default CookieLogin;
