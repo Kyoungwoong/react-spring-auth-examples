@@ -1,0 +1,84 @@
+/* 전체 페이지 스타일 */
+.login-container {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f7fb;
+    margin: 0;
+  }
+  
+  /* 로그인 폼 스타일 */
+  .login-form {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+  }
+  
+  /* 로그인 제목 스타일 */
+  .login-title {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+  
+  /* 입력 필드 스타일 */
+  .input-field {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+  }
+  
+  /* 버튼 스타일 */
+  .login-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff; /* Blue button for session login */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    box-sizing: border-box;
+    margin-top: 10px;
+  }
+  
+  .login-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  
+  /* 로그아웃 버튼 */
+  .logout-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #dc3545; /* Red button for logout */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    box-sizing: border-box;
+    margin-top: 10px;
+  }
+  
+  .logout-button:hover {
+    background-color: #c82333; /* Darker red on hover */
+  }
+  
+  /* 에러 메시지 스타일 */
+  .error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  

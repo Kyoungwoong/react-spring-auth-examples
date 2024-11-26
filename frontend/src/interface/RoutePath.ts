@@ -1,4 +1,5 @@
 export enum RoutePath {
     HOMEPAGE = "/",
-    COOKIE = "/login-cookie"
+    COOKIE = "/login-cookie",
+    SESSION = "/login-session"
 }
