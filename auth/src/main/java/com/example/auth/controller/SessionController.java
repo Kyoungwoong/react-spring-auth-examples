@@ -29,7 +29,7 @@ public class SessionController {
     public ResponseEntity<String> loginV1(@RequestParam String username,
                                           @RequestParam String password,
                                           HttpServletResponse response) {
-        log.info("session login id: {}, password: {}", username, password);
+        log.info("session cookie login id: {}, password: {}", username, password);
 
         // Authorization User
         Member member = authService.login(username, password);
@@ -46,6 +46,7 @@ public class SessionController {
     public ResponseEntity<String> loginV2(@RequestParam String username,
                                           @RequestParam String password,
                                           HttpServletRequest request) {
+        log.info("session Attribute login id: {}, password: {}", username, password);
 
         Member member = authService.login(username, password);
         if (member != null) {
@@ -65,6 +66,8 @@ public class SessionController {
 
     @PostMapping("/logoutV1")
     public ResponseEntity<String> logoutV1(HttpServletRequest request) {
+        log.info("logout session cookie");
+
         if (sessionManager.expire(request)) {
             return ResponseEntity.ok("Success session-logout");
         }
@@ -73,7 +76,9 @@ public class SessionController {
     }
 
     @PostMapping("/logoutV2")
-    public ResponseEntity<String> logoutV3(HttpServletRequest request) {
+    public ResponseEntity<String> logoutV2(HttpServletRequest request) {
+        log.info("logout session Attribute");
+
         StringBuilder sb = new StringBuilder();
         sb.append("Success session-logout: ");
 
