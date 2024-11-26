@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/session")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*", allowCredentials = "true")
 public class SessionController {
 
     private final AuthService authService;
@@ -84,6 +84,8 @@ public class SessionController {
 
         HttpSession session = request.getSession(false);
         if (session != null) {
+            Member member = (Member) session.getAttribute(LOGIN_MEMBER);
+            System.out.println("session value: " + (member == null ? "not found member" : member.getUsername()));
             session.invalidate();
             sb.append("expire session");
         }

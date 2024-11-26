@@ -36,7 +36,7 @@ public class SessionManager {
         // Create a session cookie with the generated session ID.
         Cookie sessionCookie = new Cookie(SESSION_COOKIE_NAME, sessionId);
         sessionCookie.setHttpOnly(true); // Enhance security by restricting client-side access
-        sessionCookie.setPath("/");      // Make the cookie accessible across the application
+//        sessionCookie.setPath("/");      // Make the cookie accessible across the application
         response.addCookie(sessionCookie);
     }
 
@@ -64,6 +64,8 @@ public class SessionManager {
      */
     public boolean expire(HttpServletRequest request) {
         Cookie sessionCookie = findCookie(request, SESSION_COOKIE_NAME);
+        System.out.println("sessionCookie = " + sessionCookie.getName());
+
         if (sessionCookie != null) {
             sessionStore.remove(sessionCookie.getValue());
             return true;
