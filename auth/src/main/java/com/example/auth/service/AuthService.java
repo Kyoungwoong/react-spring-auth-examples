@@ -14,7 +14,11 @@ public class AuthService {
     private final MemberRepository repository;
 
     /**
-     * Create: 새로운 사용자 생성
+     * Create a new user.
+     *
+     * @param member the member to be created
+     * @return the created member
+     * @throws IllegalArgumentException if the username already exists
      */
     public Member createMember(Member member) {
         if (repository.existsByUsername(member.getUsername())) {
@@ -24,7 +28,11 @@ public class AuthService {
     }
 
     /**
-     * Read: ID로 사용자 조회
+     * Retrieve a user by their ID.
+     *
+     * @param id the ID of the member
+     * @return the member with the specified ID
+     * @throws IllegalArgumentException if no member is found with the given ID
      */
     public Member getMemberById(Long id) {
         return repository.findById(id)
@@ -32,7 +40,10 @@ public class AuthService {
     }
 
     /**
-     * Read: Username으로 사용자 조회
+     * Retrieve a user by their username.
+     *
+     * @param username the username of the member
+     * @return the member with the specified username, or null if not found
      */
     public Member getMemberByUsername(String username) {
         if (repository.existsByUsername(username)) {
@@ -42,20 +53,28 @@ public class AuthService {
     }
 
     /**
-     * Update: 사용자 정보 수정
+     * Update the information of an existing user.
+     *
+     * @param id the ID of the member to update
+     * @param updatedMember the updated member information
+     * @return the updated member
+     * @throws IllegalArgumentException if no member is found with the given ID
      */
     public Member updateMember(Long id, Member updatedMember) {
         Member existingMember = repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Member not found with ID: " + id));
 
         existingMember.setUsername(updatedMember.getUsername());
-        existingMember.setPassword(updatedMember.getPassword()); // 예시로 비밀번호도 수정
+        existingMember.setPassword(updatedMember.getPassword()); // Example: updating password
 
         return repository.save(existingMember);
     }
 
     /**
-     * Delete: 사용자 삭제
+     * Delete a user by their ID.
+     *
+     * @param id the ID of the member to delete
+     * @throws IllegalArgumentException if no member is found with the given ID
      */
     public void deleteMember(Long id) {
         if (!repository.existsById(id)) {
@@ -63,4 +82,22 @@ public class AuthService {
         }
         repository.deleteById(id);
     }
+
+    /**
+     * Authenticate a user by username and password.
+     *
+     * @param username the username of the member
+     * @param password the password of the member
+     * @return the authenticated member, or null if authentication fails
+     */
+    public Member login(String username, String password) {
+        Member member = repository.findByUsername(username);
+
+        if (member.getPassword().equals(password)) {
+            return member;
+        }
+
+        return null;
+    }
 }
+
