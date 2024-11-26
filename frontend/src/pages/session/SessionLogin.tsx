@@ -20,11 +20,13 @@ const SessionLogin: React.FC = () => {
             body: new URLSearchParams({
                 username: username,
                 password: password
-            })
+            }),
+            credentials: 'include'
         });
 
         if (response.ok) {
             const data = await response.text(); // 서버의 응답 메시지
+            console.log(data);
             setLoginMessage(data);
             setIsAuthenticated(true);
         } else {
@@ -47,7 +49,8 @@ const SessionLogin: React.FC = () => {
               body: new URLSearchParams({
                   username: username,
                   password: password
-              })
+              }),
+              credentials: 'include'
           });
 
           if (response.ok) {
@@ -67,11 +70,13 @@ const SessionLogin: React.FC = () => {
   const logoutV1 = async () => {
       try {
           const response = await fetch('http://localhost:8080/session/logoutV1', {
-              method: 'POST'
+              method: 'POST',
+              credentials: 'include'
           });
 
           if (response.ok) {
               const data = await response.text(); // 서버의 응답 메시지
+              console.log(data);
               setLogoutMessage(data);
               setIsAuthenticated(false);
           } else {
@@ -87,7 +92,8 @@ const SessionLogin: React.FC = () => {
   const logoutV2 = async () => {
       try {
           const response = await fetch('http://localhost:8080/session/logoutV2', {
-              method: 'POST'
+              method: 'POST',
+              credentials: 'include'
           });
 
           if (response.ok) {
