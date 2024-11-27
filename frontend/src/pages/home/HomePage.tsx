@@ -29,8 +29,8 @@ const HomePage: React.FC = () => {
                 </div>
                 <div className="feature-card">
                     <h3>JWT-Based Login</h3>
-                    <p>Learn how to implement login using JWT tokens.</p>
-                    <Link to="/login-jwt">Learn More</Link>
+                    <p>Learn how to implement login using spring-security JWT tokens.</p>
+                    <Link to="/login-security">Learn More</Link>
                 </div>
                 <div className="feature-card">
                     <h3>OAuth-Based Login</h3>
