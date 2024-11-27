@@ -1,10 +1,18 @@
 package com.example.auth.service;
 
+import com.example.auth.config.security.JwtProvider;
 import com.example.auth.domain.Member;
+import com.example.auth.dto.response.JwtResponse;
 import com.example.auth.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
+import javax.management.RuntimeErrorException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -12,6 +20,8 @@ import java.util.Optional;
 public class AuthService {
 
     private final MemberRepository repository;
+    private final AuthenticationManager authenticationManager;
+    private final JwtProvider jwtProvider;
 
     /**
      * Create a new user.
@@ -98,6 +108,25 @@ public class AuthService {
         }
 
         return null;
+    }
+
+    public JwtResponse loginMember(String username, String password) {
+        if (!repository.existsByUsername(username)) {
+            throw new RuntimeErrorException(new Error("not Found Member"));
+        }
+
+        final Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(username, password)
+        );
+
+        final String jwtAccessToken = jwtProvider.generateJwtToken(authentication);
+        final String jwtRefreshToken = null;
+
+        final UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        List<String> roles = userDetails.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority).toList();
+
+        return new JwtResponse(jwtAccessToken, jwtRefreshToken, userDetails.getUsername(), roles);
     }
 }
 

@@ -16,3 +16,8 @@ spring:
 logging.level:
   org.hibernate.SQL: debug
 #  org.hibernate.type: trace
+
+hiro:
+  jwtSecret: This is Spring-React Security Example
+  jwtAccessExpiration: 3600
+  jwtRefreshExpiration: 360000

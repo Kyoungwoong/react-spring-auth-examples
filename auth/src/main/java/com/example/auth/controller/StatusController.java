@@ -16,7 +16,6 @@ public class StatusController {
 
     @GetMapping
     public ResponseEntity<?> serverStatusCheck() {
-        log.info("this server is health");
         return ResponseEntity.ok("ok");
     }
 
@@ -24,5 +23,15 @@ public class StatusController {
     public ResponseEntity<?> anyOneCanAccess() {
         log.info("all people can access");
         return ResponseEntity.ok("all people can access");
+    }
+
+    @GetMapping("/cert")
+    public ResponseEntity<?> certifiedOne() {
+        return ResponseEntity.ok("you are authenticated one");
+    }
+
+    @GetMapping("/admin")
+    public ResponseEntity<?> certifiedAdmin() {
+        return ResponseEntity.ok("you are authenticated admin");
     }
 }
