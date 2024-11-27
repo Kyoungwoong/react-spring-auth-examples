@@ -19,5 +19,5 @@ logging.level:
 
 hiro:
   jwtSecret: This is Spring-React Security Example
-  jwtAccessExpiration: 3600
-  jwtRefreshExpiration: 360000
+  jwtAccessExpiration: 3600000
+  jwtRefreshExpiration: 36000000

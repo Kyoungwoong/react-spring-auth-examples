@@ -22,7 +22,7 @@ public class SecurityConfig {
 
     /* exclude authorization url */
     private static final String[] permitAllUrl = new String[]{
-            /** @brief Retrieve status*/"/auth/**", "/status/all",
+            /** @brief Retrieve status*/"/security/**", "/status/all",
     };
 
     /* Can Access Only Admin */

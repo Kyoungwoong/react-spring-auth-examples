@@ -25,7 +25,7 @@ public class SecurityController {
     public ResponseEntity<JwtResponse> signIn(
             @RequestBody SignUpRequest loginRequest
     ) {
-        log.info("member sign in");
+        log.info("member sign in username: {} password: {}", loginRequest.getUsername(), loginRequest.getPassword());
         JwtResponse response = authService.loginMember(loginRequest.getUsername(), loginRequest.getPassword());
 
         return ResponseEntity.ok(response);

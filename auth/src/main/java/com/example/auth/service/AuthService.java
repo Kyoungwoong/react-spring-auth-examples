@@ -5,6 +5,7 @@ import com.example.auth.domain.Member;
 import com.example.auth.dto.response.JwtResponse;
 import com.example.auth.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -15,11 +16,13 @@ import javax.management.RuntimeErrorException;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthService {
 
     private final MemberRepository repository;
+    // 'java.lang.StackOverflowError' exception. Cannot evaluate jdk.proxy2.$Proxy133.toString()
     private final AuthenticationManager authenticationManager;
     private final JwtProvider jwtProvider;
 
@@ -114,6 +117,7 @@ public class AuthService {
         if (!repository.existsByUsername(username)) {
             throw new RuntimeErrorException(new Error("not Found Member"));
         }
+        log.info("login Member");
 
         final Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(username, password)

@@ -50,7 +50,7 @@ public class JwtProvider {
                 .setSubject(authentication.getName())
                 .claim("role", roles)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(new Date().getTime() + jwtAccessExpiration))
+                .setExpiration(new Date((new Date()).getTime() + jwtAccessExpiration))
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
