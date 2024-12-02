@@ -33,6 +33,7 @@ const CookieLogin: React.FC = () => {
 
       if (response.ok) {
         const token = await response.text(); // Assume the backend returns a token as plain text
+        console.log("token: ", token)
         setCookie('auth-token', token, { path: '/', maxAge: 3600 }); // Set the token in cookies
         setIsAuthenticated(true);
         alert('Login successful');
@@ -52,6 +53,8 @@ const CookieLogin: React.FC = () => {
       });
 
       if (response.ok) {
+        const token = await response.text();
+        console.log("token: ", token)
         removeCookie('auth-token', { path: '/' }); // Remove the token cookie
         setIsAuthenticated(false);
         alert('Logout successful');

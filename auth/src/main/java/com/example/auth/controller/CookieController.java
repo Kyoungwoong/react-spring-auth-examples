@@ -46,15 +46,5 @@ public class CookieController {
         response.addCookie(cookie);
         return ResponseEntity.ok("Success logout");
     }
-
-    @GetMapping("/check-login")
-    public ResponseEntity<String> checkLogin(@CookieValue(value = "memberId", defaultValue = "") String authToken) {
-        log.info("check-login cookie: {}", authToken);
-        Member member = authService.getMemberByUsername("hiro");
-        if (String.valueOf(member.getId()).equals(authToken)) {
-            return ResponseEntity.ok("Authenticated");
-        }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Not authenticated");
-    }
 }
 
