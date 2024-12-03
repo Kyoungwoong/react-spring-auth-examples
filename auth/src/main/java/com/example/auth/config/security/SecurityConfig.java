@@ -1,6 +1,10 @@
 package com.example.auth.config.security;
 
 import com.example.auth.config.WebConfig;
+import com.example.auth.handler.OAuth2AuthenticationFailureHandler;
+import com.example.auth.handler.OAuth2AuthenticationSuccessHandler;
+import com.example.auth.repository.HttpCookieOAuth2AuthorizationRequestRepository;
+import com.example.auth.service.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +13,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,6 +30,7 @@ public class SecurityConfig {
             /** @brief Retrieve status*/ "/security/**", "/status/all",
             /** @brief login using cookie */ "/cookie/**",
             /** @brief login using session */ "/session/**",
+            "/h2-console/**"
     };
 
     /* Can Access Only Admin */
@@ -39,6 +45,10 @@ public class SecurityConfig {
 
     private final JwtFilter filter;
     private final WebConfig webConfig;
+    private final CustomOAuth2UserService customOAuth2UserService;
+    private final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
+    private final OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
+    private final HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -55,6 +65,9 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
+                .headers(headersConfigurer -> headersConfigurer.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
+                .formLogin(AbstractHttpConfigurer::disable)
+                .httpBasic(AbstractHttpConfigurer::disable)
                 .sessionManagement((sessionManagement) ->
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> {
@@ -62,6 +75,12 @@ public class SecurityConfig {
                     auth.requestMatchers(permitAdminUrl).hasRole("ADMIN");
                     auth.anyRequest().authenticated();
                 })
+                .oauth2Login(configure ->
+                        configure.authorizationEndpoint(config -> config.authorizationRequestRepository(httpCookieOAuth2AuthorizationRequestRepository))
+                                .userInfoEndpoint(config -> config.userService(customOAuth2UserService))
+                                .successHandler(oAuth2AuthenticationSuccessHandler)
+                                .failureHandler(oAuth2AuthenticationFailureHandler)
+                )
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
                 .addFilter(webConfig.corsFilter())
                 .build();

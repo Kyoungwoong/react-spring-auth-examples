@@ -1,6 +1,7 @@
 spring:
   datasource:
-    url: jdbc:h2:tcp://localhost/~/auth
+#    url: jdbc:h2:tcp://localhost/~/auth
+    url: jdbc:h2:mem:test
     username: sa
     password:
     driver-class-name: org.h2.Driver
@@ -21,3 +22,17 @@ hiro:
   jwtSecret: This is Spring-React Security Example
   jwtAccessExpiration: 3600000
   jwtRefreshExpiration: 36000000
+
+---
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: "your client id"
+            client-secret: "your client secret"
+            scope: # 기본 값 openid,profile,email => profile, email 로 설정 변경
+              - profile
+              - email
