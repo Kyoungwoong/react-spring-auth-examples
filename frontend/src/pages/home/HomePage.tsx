@@ -35,7 +35,7 @@ const HomePage: React.FC = () => {
                 <div className="feature-card">
                     <h3>OAuth-Based Login</h3>
                     <p>Learn how to implement login using OAuth 2.0.</p>
-                    <Link to="/login-oauth">Learn More</Link>
+                    <Link to="/login-oauth2">Learn More</Link>
                 </div>
             </section>
         </div>

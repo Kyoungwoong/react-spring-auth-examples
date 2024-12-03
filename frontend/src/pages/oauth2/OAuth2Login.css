@@ -1,0 +1,47 @@
+/* 컨테이너 스타일 */
+.oauth-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f7f7f7;
+  }
+  
+  /* 제목 스타일 */
+  .oauth-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* 공통 버튼 스타일 */
+  .oauth-button {
+    display: inline-block;
+    width: 300px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    margin: 10px 0;
+    cursor: pointer;
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  /* 플랫폼별 버튼 스타일 */
+  .google-button {
+    background-color: #4285f4; /* Google Blue */
+  }
+  
+  .naver-button {
+    background-color: #03c75a; /* Naver Green */
+  }
+  
+  .kakao-button {
+    background-color: #ffeb00; /* Kakao Yellow */
+    color: #3c1e1e; /* Kakao Text Color */
+  }
+  

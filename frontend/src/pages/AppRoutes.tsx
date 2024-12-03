@@ -4,6 +4,7 @@ import HomePage from './home/HomePage';
 import CookieLogin from './cookie/CookieLogin';
 import SessionLogin from './session/SessionLogin';
 import SecurityLogin from './security/SecurityLogin';
+import OAuth2Login from './oauth2/OAuth2Login';
 
 const AppRoutes = () => {
     return (
@@ -13,6 +14,7 @@ const AppRoutes = () => {
               <Route path={RoutePath.COOKIE} element={<CookieLogin />} />
               <Route path={RoutePath.SESSION} element={<SessionLogin />} />
               <Route path={RoutePath.SECURITY} element={<SecurityLogin />} />
+              <Route path={RoutePath.OAUTH2} element={<OAuth2Login />} />
           </Routes>
       </Router>
     )
