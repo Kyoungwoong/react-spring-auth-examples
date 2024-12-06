@@ -9,6 +9,8 @@ public class OAuth2UserInfoFactory {
                                                    Map<String, Object> attributes) {
         if (OAuth2Provider.GOOGLE.getRegistrationId().equals(registrationId)) {
             return new GoogleOAuth2UserInfo(accessToken, attributes);
+        } else if (OAuth2Provider.KAKAO.getRegistrationId().equals(registrationId)) {
+            return new KakaoOAuth2UserInfo(accessToken, attributes);
         } else {
             throw new RuntimeException("Login with " + registrationId + " is not supported");
         }
